@@ -1,0 +1,37 @@
+/**
+ * Tema compartido — calculadoras SPDP (Ecuador).
+ * Importar al inicio de cada hoja de estilos de app: @import "../shared/spdp-theme.css";
+ */
+:root {
+  --bg: #eef1f6;
+  --surface: #ffffff;
+  --text: #1a2332;
+  --muted: #5c6677;
+  --border: #d5dce6;
+  --primary: #0f4c81;
+  --primary-soft: #e8f1fa;
+  --ok: #0d6b3d;
+  --ok-bg: #e6f4ec;
+  --alert: #9b1c1c;
+  --alert-bg: #fceaea;
+  --pending: #5c6677;
+  --pending-bg: #f0f2f5;
+  --radius: 12px;
+  --shadow: 0 8px 28px rgba(22, 34, 51, 0.08);
+  --font: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.45;
+  min-height: 100vh;
+}

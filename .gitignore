@@ -1,0 +1,23 @@
+# Dependencias y artefactos de build
+node_modules/
+dist/
+*.local
+
+# Entornos
+.env
+.env.*
+
+# SO / IDE
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Logs
+npm-debug.log*
+*.log
+
+# Documentos locales / ejercicios (no versionar)
+*.xlsx
+instrucciones.txt

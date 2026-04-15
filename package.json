@@ -1,0 +1,15 @@
+{
+  "name": "spdp-calculadoras-workspace",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Workspace único Vite: calculadora gran escala + calculadora sanciones SPDP",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^8.0.8"
+  }
+}
