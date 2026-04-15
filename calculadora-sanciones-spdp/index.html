@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none';" />
+    <title>Calculadora de Sanciones SPDP</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <div>
+            <h1 class="app-title">Calculadora de Sanciones SPDP</h1>
+            <p class="app-subtitle">Módulo determinístico basado en los modelos MPRIV-1 y MPUB-1.</p>
+          </div>
+        </div>
+        <p class="app-tagline">
+          Herramienta orientativa: los resultados dependen de los datos que ingrese. No se almacena información en
+          servidor; contrastar con la normativa aplicable y el Registro Oficial.
+        </p>
+      </header>
+
+      <main class="sanciones-main">
+        <section class="card sanciones-card">
+          <form id="sanctions-form" novalidate>
+            <fieldset class="section">
+              <legend>1) Tipo de institución</legend>
+              <div class="grid-2">
+                <label for="institutionType">Selecciona institución</label>
+                <select id="institutionType" name="institutionType" required>
+                  <option value="">-- Seleccionar --</option>
+                  <option value="private">Privada con fines de lucro (MPRIV-1)</option>
+                  <option value="public">Pública (MPUB-1)</option>
+                </select>
+              </div>
+            </fieldset>
+
+            <fieldset id="infraction-fieldset" class="section section-disabled" aria-disabled="true">
+              <legend>2) Tipo de infracción (normativa)</legend>
+              <div class="grid-2">
+                <label for="infractionType">Selecciona tipo de infracción</label>
+                <select id="infractionType" name="infractionType" required disabled>
+                  <option value="">-- Seleccionar --</option>
+                  <option value="leve">Leve</option>
+                  <option value="grave">Grave</option>
+                </select>
+              </div>
+              <p class="helper">El RDM se fija automáticamente según el modelo (MPRIV-1 o MPUB-1) y el tipo de infracción.</p>
+              <p id="active-range-info" class="range-info hidden"></p>
+            </fieldset>
+
+            <fieldset class="section">
+              <legend>3) Categoría de la infracción (CDI)</legend>
+
+              <div class="grid-2">
+                <label id="base-metric-label" for="baseMetricInput">VDN (Volumen de Negocio) en USD</label>
+                <input id="baseMetricInput" name="baseMetricInput" type="text" inputmode="decimal" data-number="decimal" placeholder="Ej: 100000" required />
+              </div>
+              <p id="sbu-info" class="helper hidden">
+                Valor informativo para sector público: SBU vigente = USD 482.00 (fijado automáticamente).
+              </p>
+
+              <div class="grid-2">
+                <label id="rdm-min-label" for="rdmMin">RDM mínimo (%)</label>
+                <input id="rdmMin" name="rdmMin" type="text" inputmode="decimal" data-number="decimal" placeholder="Auto" readonly required />
+              </div>
+
+              <div class="grid-2">
+                <label id="rdm-max-label" for="rdmMax">RDM máximo (%)</label>
+                <input id="rdmMax" name="rdmMax" type="text" inputmode="decimal" data-number="decimal" placeholder="Auto" readonly required />
+              </div>
+
+              <div class="grid-2">
+                <label for="pdi">PDI (0 a 100)</label>
+                <input id="pdi" name="pdi" type="text" inputmode="decimal" data-number="decimal" value="55" placeholder="Ej: 45" required />
+              </div>
+            </fieldset>
+
+            <fieldset class="section">
+              <legend>4) Seriedad de la infracción (SDI) con PERT</legend>
+              <p class="helper">
+                Ingresa porcentajes de 0 a 100. Cada factor usa Mínimo (a), Más Probable (b) y Máximo (c). Los pesos entre
+                <strong>impacto en derechos</strong> (60%) e <strong>intencionalidad</strong> (40%), y los subpesos dentro del bloque de
+                impacto (TDP/TAV/NDV/TEV), están <strong>fijados por el modelo legal</strong> en esta calculadora. El único parámetro de
+                ponderación que puedes ajustar es el <strong>coeficiente de reincidencia (RER)</strong>.
+              </p>
+
+              <div class="sdi-weights-panel" aria-label="Pesos del SDI">
+                <h3 class="sdi-weights-title">Pesos normativos del SDI (visibilidad)</h3>
+                <table class="sdi-weights-table">
+                  <thead>
+                    <tr>
+                      <th>Bloque</th>
+                      <th>Factor</th>
+                      <th>Peso</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td rowspan="4">Impacto en derechos (IED)<br /><span class="weight-note">60% fijo (ley)</span></td>
+                      <td>TDP</td>
+                      <td>40% del subscore IED</td>
+                    </tr>
+                    <tr>
+                      <td>TAV</td>
+                      <td>20% del subscore IED</td>
+                    </tr>
+                    <tr>
+                      <td>NDV</td>
+                      <td>20% del subscore IED</td>
+                    </tr>
+                    <tr>
+                      <td>TEV</td>
+                      <td>20% del subscore IED</td>
+                    </tr>
+                    <tr>
+                      <td>Intencionalidad</td>
+                      <td>INT</td>
+                      <td>40% fijo (ley)</td>
+                    </tr>
+                    <tr>
+                      <td>Reincidencia</td>
+                      <td>RER</td>
+                      <td>PERT × coeficiente (editable abajo)</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="grid-2 rer-coef-row">
+                  <label for="rerCoef">Coeficiente de reincidencia (RER) — único peso ajustable</label>
+                  <input
+                    id="rerCoef"
+                    name="rerCoef"
+                    type="text"
+                    inputmode="decimal"
+                    data-number="decimal"
+                    value="0.20"
+                    required
+                    aria-describedby="rer-coef-help"
+                  />
+                </div>
+                <p id="rer-coef-help" class="helper">
+                  Valor típico 0.20. Se aplica al valor PERT de RER: el SDI suma el término de reincidencia como
+                  <code>2 × (… + RER_PERT × coeficiente)</code>. Si el PERT de RER es 0, ese término no aporta aunque subas el coeficiente.
+                </p>
+              </div>
+
+              <div class="factor-table">
+                <div class="factor-header">Factor</div>
+                <div class="factor-header">Peso en modelo</div>
+                <div class="factor-header">Mín (a)</div>
+                <div class="factor-header">Prob (b)</div>
+                <div class="factor-header">Máx (c)</div>
+
+                <div>TDP (Tipos de datos)</div>
+                <div class="weight-hint">IED 60% × 40%</div>
+                <input name="tdpMin" type="text" inputmode="decimal" data-number="decimal" value="20" required />
+                <input name="tdpProb" type="text" inputmode="decimal" data-number="decimal" value="35" required />
+                <input name="tdpMax" type="text" inputmode="decimal" data-number="decimal" value="65" required />
+
+                <div>TAV (Titulares afectados/volumen)</div>
+                <div class="weight-hint">IED 60% × 20%</div>
+                <input name="tavMin" type="text" inputmode="decimal" data-number="decimal" value="20" required />
+                <input name="tavProb" type="text" inputmode="decimal" data-number="decimal" value="35" required />
+                <input name="tavMax" type="text" inputmode="decimal" data-number="decimal" value="65" required />
+
+                <div>NDV (Naturaleza de vulneración)</div>
+                <div class="weight-hint">IED 60% × 20%</div>
+                <input name="ndvMin" type="text" inputmode="decimal" data-number="decimal" value="20" required />
+                <input name="ndvProb" type="text" inputmode="decimal" data-number="decimal" value="35" required />
+                <input name="ndvMax" type="text" inputmode="decimal" data-number="decimal" value="70" required />
+
+                <div>TEV (Titulares vulnerables)</div>
+                <div class="weight-hint">IED 60% × 20%</div>
+                <input name="tevMin" type="text" inputmode="decimal" data-number="decimal" value="20" required />
+                <input name="tevProb" type="text" inputmode="decimal" data-number="decimal" value="40" required />
+                <input name="tevMax" type="text" inputmode="decimal" data-number="decimal" value="60" required />
+
+                <div>INT (Intencionalidad)</div>
+                <div class="weight-hint">Bloque INT 40% (ley)</div>
+                <input name="intMin" type="text" inputmode="decimal" data-number="decimal" value="31" required />
+                <input name="intProb" type="text" inputmode="decimal" data-number="decimal" value="38" required />
+                <input name="intMax" type="text" inputmode="decimal" data-number="decimal" value="75" required />
+
+                <div>RER (Reiteración / reincidencia)</div>
+                <div class="weight-hint">PERT × coef. (editable)</div>
+                <input name="rerMin" type="text" inputmode="decimal" data-number="decimal" value="0" />
+                <input name="rerProb" type="text" inputmode="decimal" data-number="decimal" value="0" />
+                <input name="rerMax" type="text" inputmode="decimal" data-number="decimal" value="0" />
+              </div>
+            </fieldset>
+
+            <button id="calculate-btn" type="submit" class="btn-primary" disabled>Calcular Multa Determinística</button>
+
+            <p class="helper" id="result-hint">
+              El resultado determinístico, la simulación Monte Carlo y la opción de impresión se abren en una ventana independiente.
+            </p>
+
+            <div id="error-box" class="error-box" aria-live="polite"></div>
+          </form>
+        </section>
+      </main>
+
+      <footer class="app-footer">
+        <small>Sin almacenamiento de datos en servidor. Revise siempre los textos legales y modelos oficiales vigentes.</small>
+      </footer>
+    </div>
+
+    <script type="module" src="./js/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,257 @@
+@import "../shared/spdp-theme.css";
+
+/* --- Cabecera (misma línea visual que gran escala) --- */
+.app-shell {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 1.25rem 1rem 2rem;
+}
+
+.app-header {
+  margin-bottom: 1.5rem;
+}
+
+.brand {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+
+.brand-mark {
+  width: 10px;
+  height: 48px;
+  border-radius: 4px;
+  background: linear-gradient(180deg, var(--primary), #1a7fd4);
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+
+.app-title {
+  margin: 0;
+  font-size: clamp(1.25rem, 2.5vw, 1.65rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.app-subtitle {
+  margin: 0.35rem 0 0 0;
+  font-size: 0.88rem;
+  color: var(--muted);
+  max-width: 70ch;
+}
+
+.app-tagline {
+  margin: 1rem 0 0 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+  max-width: 85ch;
+}
+
+.sanciones-main {
+  margin: 0;
+}
+
+.card.sanciones-card {
+  width: 100%;
+  max-width: 1024px;
+  margin: 0 auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.15rem 1.25rem;
+  box-shadow: var(--shadow);
+}
+
+.section {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1rem;
+  background: #fafbfd;
+}
+
+.section-disabled {
+  opacity: 0.75;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 0.6rem;
+  align-items: center;
+  margin-bottom: 0.6rem;
+}
+
+input[type="text"] {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.55rem 0.65rem;
+  font-size: 0.9rem;
+  font-family: inherit;
+  background: #fff;
+  color: var(--text);
+}
+
+select {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.55rem 0.65rem;
+  font-size: 0.9rem;
+  background: #fff;
+  color: var(--text);
+  font-family: inherit;
+}
+
+input[type="text"]:focus,
+select:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
+  border-color: #a8bdd4;
+}
+
+.helper {
+  color: var(--muted);
+  margin-top: 0;
+  font-size: 0.86rem;
+}
+
+.range-info {
+  margin: 0.4rem 0 0 0;
+  font-size: 0.88rem;
+  color: var(--primary);
+  background: var(--primary-soft);
+  border: 1px solid #cfe2f5;
+  border-radius: 8px;
+  padding: 0.55rem 0.65rem;
+}
+
+.sdi-weights-panel {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1rem;
+  background: #fafbfd;
+}
+
+.sdi-weights-title {
+  margin: 0 0 0.6rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.sdi-weights-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  margin-bottom: 0.85rem;
+}
+
+.sdi-weights-table th,
+.sdi-weights-table td {
+  border: 1px solid var(--border);
+  padding: 0.4rem 0.5rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.sdi-weights-table th {
+  background: #f4f6f9;
+}
+
+.weight-note {
+  font-size: 0.82rem;
+  color: var(--muted);
+  font-weight: normal;
+}
+
+.rer-coef-row {
+  margin-top: 0.25rem;
+}
+
+.weight-hint {
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.3;
+}
+
+.factor-table {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr repeat(3, minmax(64px, 1fr));
+  gap: 0.45rem;
+  align-items: center;
+}
+
+.factor-header {
+  font-weight: 700;
+  font-size: 0.88rem;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(15, 76, 129, 0.15);
+}
+
+.btn-primary:hover:not(:disabled) {
+  filter: brightness(1.06);
+}
+
+.btn-primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.error-box {
+  margin-top: 0.7rem;
+  color: var(--alert);
+  font-size: 0.88rem;
+  min-height: 1.2rem;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.app-footer {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+code {
+  font-size: 0.85em;
+  background: #eef1f6;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+}
+
+@media (max-width: 760px) {
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .factor-table {
+    grid-template-columns: 1fr;
+  }
+
+  .factor-header {
+    display: none;
+  }
+
+  .factor-table .weight-hint {
+    margin: -0.2rem 0 0.35rem 0;
+    padding-left: 0.1rem;
+  }
+}
