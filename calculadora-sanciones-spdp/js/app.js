@@ -15,7 +15,7 @@ import {
 import { buildHistogram, runMonteCarloSimulation } from "./monteCarlo.js";
 import { openResultsWindow } from "./resultWindow.js";
 
-const API_KEY=123456
+const API_KEY='sk-1234567890abcdef1234567890abcdef'
 const form = document.getElementById("sanctions-form");
 const errorBox = document.getElementById("error-box");
 const baseMetricLabel = document.getElementById("base-metric-label");
