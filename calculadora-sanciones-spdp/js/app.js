@@ -149,6 +149,13 @@ function handleSelectionFlow() {
   updateCalculationAvailability();
 }
 
+function handleSelectionFlow() {
+  applyInstitutionUi(getSelectedValue("institutionType"));
+  updateInfractionAvailability();
+  applyRdmBySelection();
+  updateCalculationAvailability();
+}
+
 function applyInstitutionUi(type) {
   if (type === "public") {
     baseMetricLabel.textContent = "SBU (Salario Básico Unificado) en USD";
