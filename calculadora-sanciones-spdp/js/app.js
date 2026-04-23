@@ -391,4 +391,3 @@ function buildRangeInfoText(institutionType, infractionType, rdmRange) {
   const maxStr = Number(rdmRange.max).toFixed(2);
   return `Rango aplicado (${model} - ${infractionLabel}): ${minStr} a ${maxStr} ${unit}.`;
 }
-//a
