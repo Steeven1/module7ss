@@ -3,6 +3,8 @@ pipeline {
     agent any
     triggers{
         githubPush()
+        pollSCM('H/5 * * * *')
+
     }
     environment {
         NODE_ENV = 'production' // Configurar el entorno de producción
